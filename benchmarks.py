@@ -6,8 +6,10 @@ Created on Tue May 17 12:46:20 2016
 @contributor: aucan
 """
 
+from cmath import isnan
 import numpy
 import math
+import utils
 
 # define the function blocks
 def prod(it):
@@ -335,7 +337,35 @@ def F23(L):
 
 def F24(L):
     #aucan and ahmetcankal
-    return 0
+    # print(L)
+    # data_x = [
+    #     [4, 4, 4, 4],
+    #     [1, 1, 1, 1],
+    #     [8, 8, 8, 8],
+    #     [6, 6, 6, 6],
+    #     [3, 7, 3, 7],
+    #     [2, 9, 2, 9],
+    #     [5, 5, 3, 3],
+    #     [8, 1, 8, 1],
+    #     [6, 2, 6, 2],
+    #     [7, 3.6, 7, 3.6],
+    # ]
+    # data_y = [0.1, 0.2, 0.2, 0.4, 0.4, 0.6, 0.3, 0.7, 0.5, 0.5]
+    # data_x = numpy.asarray(data_x)
+    # data_y = numpy.asarray(data_y)
+    data_x,data_y=utils.loaddata()
+    rmse = 0
+    sumd2= 0
+    for i in range(data_y.shape[0]):
+        # assert len(L) == len(data_x[i, :]),'dimension error'
+        m = numpy.multiply(L , data_x[i, :])
+        s = sum(m)
+        assert not isnan(s),'nan error'
+        d = data_y[i] - s
+        d2= d*d
+        sumd2+= d2
+    rmse= sumd2/data_y.shape[0]
+    return rmse
 
 def getFunctionDetails(a):
     # [name, lb, ub, dim]
@@ -363,6 +393,7 @@ def getFunctionDetails(a):
         "F21": ["F21", 0, 10, 4],
         "F22": ["F22", 0, 10, 4],
         "F23": ["F23", 0, 10, 4],
+        "F24": ["F24", -10, 10, 35],
     }
     return param.get(a, "nothing")
 
