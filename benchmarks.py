@@ -3,6 +3,7 @@
 Created on Tue May 17 12:46:20 2016
 
 @author: Hossam Faris
+@contributor: aucan
 """
 
 import numpy
@@ -331,6 +332,10 @@ def F23(L):
         fit = fit - ((v) * (v.T) + cSH[i]) ** (-1)
     o = fit.item(0)
     return o
+
+def F24(L):
+    #aucan and ahmetcankal
+    return 0
 
 def getFunctionDetails(a):
     # [name, lb, ub, dim]
