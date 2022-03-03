@@ -12,9 +12,9 @@
 # x.info()
 import pandas as pd
 
-def loaddata(_hisseadi='ARCLK'):
+def loaddata(hisseadi,dim):
     data = pd.read_csv('Y:\piton22\Evolopy\datas\dostumhissedegiskenler.csv', sep=";")
-    data = data[data['hisseadi'] == 'ARCLK']
+    data = data[data['hisseadi'] == hisseadi]
     data_y=data.loc[:,"hkapanis"]
     data_x = data.drop(columns=data.columns[-1], axis=1)
     data_x = data_x.drop(columns=data.columns[0], axis=1)
@@ -23,7 +23,7 @@ def loaddata(_hisseadi='ARCLK'):
     data_y = data_y.to_numpy()
     degiskensayisi=3
     #1. ve 2. sütun kaç değişken kullanılacaksa o kadar değişken gönderiliyor
-    data_x = data_x[:,0:12]
+    data_x = data_x[:,0:dim]
     return data_x,data_y
 
 

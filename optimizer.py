@@ -27,7 +27,7 @@ import warnings
 import os
 import plot_convergence as conv_plot
 import plot_boxplot as box_plot
-
+import utils
 warnings.simplefilter(action="ignore")
 
 
@@ -36,11 +36,12 @@ def selector(algo, func_details, popSize, Iter):
     lb = func_details[1]
     ub = func_details[2]
     dim = func_details[3]
-
+    hisseadi='ARCLK'
+    data_x,data_y=utils.loaddata(hisseadi,dim)
     if algo == "SSA":
         x = ssa.SSA(getattr(benchmarks, function_name), lb, ub, dim, popSize, Iter)
     elif algo == "PSO":
-        x = pso.PSO(getattr(benchmarks, function_name), lb, ub, dim, popSize, Iter)
+        x = pso.PSO(getattr(benchmarks, function_name), lb, ub, dim, popSize, Iter,data_x,data_y)
     elif algo == "GA":
         x = ga.GA(getattr(benchmarks, function_name), lb, ub, dim, popSize, Iter)
     elif algo == "BAT":
@@ -102,7 +103,7 @@ def run(optimizer, objectivefunc, NumOfRuns, params, export_flags):
     # Select general parameters for all optimizers (population size, number of iterations) ....
     PopulationSize = params["PopulationSize"]
     Iterations = params["Iterations"]
-
+    Dimension  = params["Dimension"]
     # Export results ?
     Export = export_flags["Export_avg"]
     Export_details = export_flags["Export_details"]
@@ -127,6 +128,7 @@ def run(optimizer, objectivefunc, NumOfRuns, params, export_flags):
             executionTime = [0] * NumOfRuns
             for k in range(0, NumOfRuns):
                 func_details = benchmarks.getFunctionDetails(objectivefunc[j])
+                func_details[3] = Dimension 
                 x = selector(optimizer[i], func_details, PopulationSize, Iterations)
                 convergence[k] = x.convergence
                 optimizerName = x.optimizer

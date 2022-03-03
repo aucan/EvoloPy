@@ -335,7 +335,7 @@ def F23(L):
     o = fit.item(0)
     return o
 
-def F24(L):
+def F24(L,data_x,data_y):
     #aucan and ahmetcankal
     # print(L)
     # data_x = [
@@ -353,7 +353,7 @@ def F24(L):
     # data_y = [0.1, 0.2, 0.2, 0.4, 0.4, 0.6, 0.3, 0.7, 0.5, 0.5]
     # data_x = numpy.asarray(data_x)
     # data_y = numpy.asarray(data_y)
-    data_x,data_y=utils.loaddata()
+    #data_x,data_y=utils.loaddata()
     rmse = 0
     sumd2= 0
     for i in range(data_y.shape[0]):

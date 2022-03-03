@@ -11,7 +11,7 @@ from solution import solution
 import time
 
 
-def PSO(objf, lb, ub, dim, PopSize, iters):
+def PSO(objf, lb, ub, dim, PopSize, iters,data_x,data_y):
 
     # PSO parameters
 
@@ -57,7 +57,7 @@ def PSO(objf, lb, ub, dim, PopSize, iters):
             for j in range(dim):
                 pos[i, j] = numpy.clip(pos[i, j], lb[j], ub[j])
             # Calculate objective function for each particle
-            fitness = objf(pos[i, :])
+            fitness = objf(pos[i, :],data_x,data_y)
 
             if pBestScore[i] > fitness:
                 pBestScore[i] = fitness
