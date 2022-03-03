@@ -13,12 +13,18 @@
 import pandas as pd
 
 def loaddata(_hisseadi='ARCLK'):
-    data = pd.read_csv('datas/dostumhissedegiskenler.csv', sep=";")
+    data = pd.read_csv('Y:\piton22\Evolopy\datas\dostumhissedegiskenler.csv', sep=";")
     data = data[data['hisseadi'] == 'ARCLK']
     data_y=data.loc[:,"hkapanis"]
     data_x = data.drop(columns=data.columns[-1], axis=1)
     data_x = data_x.drop(columns=data.columns[0], axis=1)
-    return data_x.to_numpy(),data_y.to_numpy()
+    
+    data_x = data_x.to_numpy()
+    data_y = data_y.to_numpy()
+    degiskensayisi=3
+    #1. ve 2. sütun kaç değişken kullanılacaksa o kadar değişken gönderiliyor
+    data_x = data_x[:,0:12]
+    return data_x,data_y
 
 
 

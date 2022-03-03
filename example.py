@@ -21,7 +21,7 @@ objectivefunc = ["F24"]
 NumOfRuns = 3
 
 # Select general parameters for all optimizers (population size, number of iterations) ....
-params = {"PopulationSize": 30, "Iterations": 50}
+params = {"PopulationSize": 30, "Iterations": 500}
 
 # Choose whether to Export the results in different formats
 export_flags = {
