@@ -36,7 +36,7 @@ def selector(algo, func_details, popSize, Iter):
     lb = func_details[1]
     ub = func_details[2]
     dim = func_details[3]
-    hisseadi='ARCLK'
+    hisseadi = func_details[4]
     data_x,data_y=utils.loaddata(hisseadi,dim)
     if algo == "SSA":
         x = ssa.SSA(getattr(benchmarks, function_name), lb, ub, dim, popSize, Iter)
@@ -94,6 +94,7 @@ def run(optimizer, objectivefunc, NumOfRuns, params, export_flags):
         2. Export_details (Exporting the detailed results in files)
         3. Export_convergence (Exporting the covergence plots)
         4. Export_boxplot (Exporting the box plots)
+        5. Export_BestIndividual (Exporting the best individual)
 
     Returns
     -----------
@@ -104,11 +105,13 @@ def run(optimizer, objectivefunc, NumOfRuns, params, export_flags):
     PopulationSize = params["PopulationSize"]
     Iterations = params["Iterations"]
     Dimension  = params["Dimension"]
+    Hisseadi  = params["Hisseadi"]
     # Export results ?
     Export = export_flags["Export_avg"]
     Export_details = export_flags["Export_details"]
     Export_convergence = export_flags["Export_convergence"]
     Export_boxplot = export_flags["Export_boxplot"]
+    Export_BestIndividual = export_flags["Export_BestIndividual"]
 
     Flag = False
     Flag_details = False
@@ -129,10 +132,12 @@ def run(optimizer, objectivefunc, NumOfRuns, params, export_flags):
             for k in range(0, NumOfRuns):
                 func_details = benchmarks.getFunctionDetails(objectivefunc[j])
                 func_details[3] = Dimension 
+                func_details.append(Hisseadi)
                 x = selector(optimizer[i], func_details, PopulationSize, Iterations)
                 convergence[k] = x.convergence
                 optimizerName = x.optimizer
                 objfname = x.objfname
+                bestIndividual = x.bestIndividual
                 if Export_details == True:
                     ExportToFile = results_directory + "experiment_details.csv"
                     with open(ExportToFile, "a", newline="\n") as out:
@@ -186,5 +191,14 @@ def run(optimizer, objectivefunc, NumOfRuns, params, export_flags):
         print(
             "No Optomizer or Cost function is selected. Check lists of available optimizers and cost functions"
         )
+    if Export_BestIndividual == True:
+        ExportToFile = results_directory + "bestIndividual.csv"
+        with open(ExportToFile, "a", newline="\n") as out:
+            writer = csv.writer(out, delimiter=",") 
+            header = ["bestIndividual"] 
+            writer.writerow(header) 
+            writer.writerow(bestIndividual)
+        out.close()
+
 
     print("Execution completed")

@@ -97,10 +97,14 @@ def PSO(objf, lb, ub, dim, PopSize, iters,data_x,data_y):
                     + str(l + 1)
                     + " the best fitness is "
                     + str(gBestScore)
+                    + " the best individual is "
+                    + str(gBest)
+
                 ]
             )
     timerEnd = time.time()
     s.endTime = time.strftime("%Y-%m-%d-%H-%M-%S")
+    s.bestIndividual = gBest
     s.executionTime = timerEnd - timerStart
     s.convergence = convergence_curve
     s.optimizer = "PSO"

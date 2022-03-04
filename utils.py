@@ -13,7 +13,7 @@
 import pandas as pd
 
 def loaddata(hisseadi,dim):
-    data = pd.read_csv('Y:\piton22\Evolopy\datas\dostumhissedegiskenler.csv', sep=";")
+    data = pd.read_csv('datas/dostumhissedegiskenler.csv', sep=";")
     data = data[data['hisseadi'] == hisseadi]
     data_y=data.loc[:,"hkapanis"]
     data_x = data.drop(columns=data.columns[-1], axis=1)

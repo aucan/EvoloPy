@@ -6,7 +6,6 @@ Created on Tue May 17 12:46:20 2016
 @contributor: aucan
 """
 
-from cmath import isnan
 import numpy
 import math
 import utils
@@ -360,11 +359,12 @@ def F24(L,data_x,data_y):
         # assert len(L) == len(data_x[i, :]),'dimension error'
         m = numpy.multiply(L , data_x[i, :])
         s = sum(m)
-        assert not isnan(s),'nan error'
+        assert not math.isnan(s),'nan error'
         d = data_y[i] - s
         d2= d*d
         sumd2+= d2
-    rmse= sumd2/data_y.shape[0]
+    rmse = sumd2/data_y.shape[0]
+    rmse = math.sqrt(rmse)
     return rmse
 
 def getFunctionDetails(a):
