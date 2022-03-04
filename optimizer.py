@@ -67,7 +67,7 @@ def selector(algo, func_details, popSize, Iter):
     elif algo == "DE":
         x = de.DE(getattr(benchmarks, function_name), lb, ub, dim, popSize, Iter)
     else:
-        return null
+        return None
     return x
 
 
